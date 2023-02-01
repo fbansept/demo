@@ -1,32 +1,36 @@
-<h1>Ajouter un article</h1>
+<div class="container">
 
-<form [formGroup]="formArticle" class="d-flex flex-column">
+    <h1>Ajouter un article</h1>
 
-    <mat-form-field>
-        <mat-label>Titre</mat-label>
-        <input matInput formControlName="titre">
-        <mat-error>
-            Le titre est obligatoire
-        </mat-error>
-    </mat-form-field>
+    <form [formGroup]="formArticle" class="d-flex flex-column">
 
-    <mat-form-field>
-        <mat-label>Auteur</mat-label>
-        <input matInput formControlName="auteur">
-    </mat-form-field>
+        <mat-form-field>
+            <mat-label>Titre</mat-label>
+            <input matInput formControlName="titre">
+            <mat-error>
+                Le titre est obligatoire
+            </mat-error>
+        </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Contenu</mat-label>
-        <textarea matInput formControlName="contenu"></textarea>
+        <mat-form-field>
+            <mat-label>Auteur</mat-label>
+            <input matInput formControlName="auteur">
+        </mat-form-field>
 
-        <mat-error>
-            Le contenu est obligatoire
-        </mat-error>
+        <mat-form-field>
+            <mat-label>Contenu</mat-label>
+            <textarea matInput formControlName="contenu"></textarea>
 
-    </mat-form-field>
+            <mat-error>
+                Le contenu est obligatoire
+            </mat-error>
 
-    <button mat-raised-button type="submit" color="primary" (click)="onSubmit()">
-        Envoyer formulaire
-    </button>
+        </mat-form-field>
 
-</form>
+        <button mat-raised-button type="submit" color="primary" (click)="onSubmit()">
+            Envoyer formulaire
+        </button>
+
+    </form>
+
+</div>

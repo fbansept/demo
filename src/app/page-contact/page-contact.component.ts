@@ -29,7 +29,7 @@ export class PageContactComponent {
 
   onSubmit(): void {
 
-    if (this.formContact?.valid) {
+    if (this.formContact.valid) {
       alert("Le formulaire a été envoyé...")
       this.router.navigateByUrl("/accueil")
     }

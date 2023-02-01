@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { Article } from 'src/models/article';
 
 @Component({
@@ -6,29 +7,24 @@ import { Article } from 'src/models/article';
   templateUrl: './page-accueil.component.html',
   styleUrls: ['./page-accueil.component.scss']
 })
-export class PageAccueilComponent {
+export class PageAccueilComponent implements OnInit {
 
   public nomApplication: string = "DEMO"
 
-  public listeArticle: Article[] = [
-    {
-      titre: "Article 1",
-      contenu: "Contenu article 1",
-      auteur: "Franck"
-    },
-    {
-      titre: "Article 2",
-      contenu: "Contenu article 2"
-    },
-    {
-      titre: "Article 3",
-      contenu: "Contenu article 3"
-    },
+  constructor(private http: HttpClient) { }
 
-  ]
+  public listeArticle: Article[] = []
 
-  onClickBouton(): void {
-    this.nomApplication = "Autre nom"
+  ngOnInit() {
+    this.http
+      .get("http://localhost:8080/liste-article")
+      .subscribe(listeArticle => this.listeArticle = listeArticle as Article[])
+      //.subscribe((listeArticle : any) => this.listeArticle = listeArticle)
+
+
+    // fetch("http://localhost:8080/liste-article")
+    //   .then(resultat => resultat.json())
+    //   .then(listeArticle => console.log(listeArticle))
   }
 
 }

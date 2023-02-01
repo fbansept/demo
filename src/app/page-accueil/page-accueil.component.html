@@ -2,7 +2,7 @@
 
 <div class="container">
 
-    <button mat-raised-button [routerLink]="['/ajouter-article']" color="primary" class="mb-2">
+    <button mat-raised-button [routerLink]="['/edition-article']" color="primary" class="mb-2">
         <mat-icon>add</mat-icon>Ajouter un article
     </button>
 
@@ -22,7 +22,7 @@
                     </p>
                 </mat-card-content>
                 <mat-card-actions class="gap-1 justify-content-center">
-                    <button mat-raised-button color="accent">
+                    <button [routerLink]="['/edition-article',article.id]" mat-raised-button color="accent">
                         <mat-icon class="m-0">edit</mat-icon>
                         <span class="m-2 d-none d-md-block">Modifier</span>
                     </button>

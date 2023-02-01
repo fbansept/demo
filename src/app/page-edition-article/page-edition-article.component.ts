@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-edition-article',
@@ -12,19 +12,37 @@ export class PageEditionArticleComponent {
 
   public formArticle: FormGroup = this.formBuilder.group(
     {
+      "id": [null],
       "titre": ["", [Validators.required]],
-
       "auteur": ["", [Validators.maxLength(50)]],
-
       "contenu": ["", [Validators.required]]
     })
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private http: HttpClient
-
+    private http: HttpClient,
+    private route: ActivatedRoute
   ) { }
+
+  ngOnInit() {
+    this.route.params.subscribe(
+      {
+        next: (parametres: any) => {
+
+          //si il y a un parametre (cad si on est sur la page d'édition)
+          if (parametres.id) {
+            this.http.get("http://localhost:8080/article/" + parametres.id)
+              .subscribe(
+                {
+                  next: article => this.formArticle.patchValue(article),
+                  error: (erreur: HttpErrorResponse) => console.log(erreur)
+                }
+              )
+          }
+        }
+      })
+  }
 
   onSubmit(): void {
 

@@ -50,14 +50,15 @@ export class PageAccueilComponent implements OnInit {
 
                   this.snackBar.open(
                     'L\'article "' + article.titre + '" a bien été supprimé',
-                    "OK",
-                    {
-                      duration: 5000
-                    })
-
+                    "OK", { duration: 5000 })
                   this.refresh()
                 },
-                error: resultat => alert("Erreur")
+                error: resultat => {
+                  this.snackBar.open(
+                    "erreur : L'article a surement déjà été supprimé",
+                    "OK", { duration: 5000 })
+                  this.refresh()
+                }
               })
           }
         }

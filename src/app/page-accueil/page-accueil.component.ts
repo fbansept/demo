@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Article } from 'src/models/article';
 
@@ -14,7 +15,10 @@ export class PageAccueilComponent implements OnInit {
 
   public listeArticle: Article[] = []
 
-  constructor(private http: HttpClient, private snackBar: MatSnackBar) { }
+  constructor(
+    private http: HttpClient,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     this.refresh()
@@ -35,24 +39,40 @@ export class PageAccueilComponent implements OnInit {
   onClickDeleteArticle(idArticle: number | undefined): void {
     if (idArticle != undefined) {
 
-      if (confirm("Voulez-vous vraiment supprimer cet article")) {
-        this.http.delete("http://localhost:8080/article/" + idArticle)
-          .subscribe({
-            next: (article: any) => {
+      const dialogReponse = this.dialog.open(DialogSupprimerArticle)
 
-              this.snackBar.open(
-                'L\'article "' + article.titre + '" a bien été supprimé',
-                "OK",
-                {
-                  duration: 5000
-                })
+      dialogReponse.afterClosed().subscribe(
+        reponseSuppression => {
+          if (reponseSuppression) {
+            this.http.delete("http://localhost:8080/article/" + idArticle)
+              .subscribe({
+                next: (article: any) => {
 
-              this.refresh()
-            },
-            error: resultat => alert("Erreur")
-          })
-      }
+                  this.snackBar.open(
+                    'L\'article "' + article.titre + '" a bien été supprimé',
+                    "OK",
+                    {
+                      duration: 5000
+                    })
+
+                  this.refresh()
+                },
+                error: resultat => alert("Erreur")
+              })
+          }
+        }
+      )
     }
   }
 
+}
+
+@Component({
+  selector: "dialog-supprimer-article",
+  templateUrl: "../dialog-confirm-delete-article.html"
+})
+export class DialogSupprimerArticle {
+  constructor(public dialogRef: MatDialogRef<DialogSupprimerArticle>) {
+
+  }
 }

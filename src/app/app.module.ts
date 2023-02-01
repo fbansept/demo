@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PageAccueilComponent } from './page-accueil/page-accueil.component';
+import { PageAccueilComponent, DialogSupprimerArticle } from './page-accueil/page-accueil.component';
 import { PageContactComponent } from './page-contact/page-contact.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { PageEditionArticleComponent } from './page-edition-article/page-edition-article.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     PageAccueilComponent,
     PageContactComponent,
     PageNotFoundComponent,
-    PageEditionArticleComponent
+    PageEditionArticleComponent,
+    DialogSupprimerArticle
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    
+    MatDialogModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
